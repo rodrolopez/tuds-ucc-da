@@ -22,8 +22,11 @@ export class LoginService {
     if(!await this.userService.checkPassword (data.password, user.hashedPassword)) {
       throw new Error ('Contraseña incorrecta');
     }
+
+    const jwt = 'Esta es la cadena de autorización' //esto
+
     return {
-      authorizationToken: 'Esta es la cadena de autorizacion'
+      authorizationToken: jwt //buscar esto
     }
   }
 }
