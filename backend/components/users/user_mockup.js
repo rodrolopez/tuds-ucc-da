@@ -5,7 +5,7 @@ export class UserMockup{
             username: 'Pedro',
             displayName: 'Pedro Pe',
             
-    "hashedPassword": "$2b$10$fYC1haOE0P3FdcuZLKpOq.aaUx7xhGhmKs23JeEJrs/SHVqsdvsQy"
+    "hashedPassword": "$2b$10$2v6NtTTD/YAx.BmjyJvO/e0Uz5G58qSJirQD0mYXxW1Rj6ATI3JTu"
         },
         {
             uuid: '828eb501-eb39-4663-82e3-fec048ef9d34',
