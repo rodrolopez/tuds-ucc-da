@@ -1,12 +1,12 @@
 import React from 'react'
 import Login from './Login'
 
-const Body = () => {
+const Content = () => {
   return (
-    <div>
+    <div id="Content">
       <Login />
     </div>
   )
 }
 
-export default Body
+export default Content

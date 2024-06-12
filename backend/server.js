@@ -3,13 +3,12 @@ import { configureRoutes } from './routes.js';
 import { configureSwagger } from './swagger.js';
 import { configureDependencies } from './dependencies.js';
 import { configureMiddlewares } from './middlewares.js';
-
-const
-  app = express(),
-  port = 4000;
+import { Dependency } from './libs/dependency.js';
 
 
 configureDependencies();
+const conf = Dependency.get('conf');
+const app = express();
 const router = configureMiddlewares(app);
 configureRoutes(router);
 configureSwagger(router);
