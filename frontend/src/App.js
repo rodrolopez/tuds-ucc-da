@@ -1,15 +1,15 @@
+import React from 'react';
 import './App.css';
-import Menu from './components/Menu';
-import Content from './components/Content';
 import TopHeader from './components/TopHeader';
+import Menu from './components/Menu';
+import Login from './components/Login';
 
-
-function App() {
+const App = () => {
   return (
     <div className="App">
       <TopHeader />
       <Menu />
-      <Content />
+      <Login />
     </div>
   );
 }

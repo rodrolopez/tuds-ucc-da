@@ -1,0 +1,22 @@
+#TopHeader {
+  background-color: #f0f0f0;
+  height: 60px; /* Ajustar la altura según sea necesario */
+  width: calc(100% - 100px); /* Ancho total menos el ancho del Menu */
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 18px;
+}

@@ -1,7 +1,4 @@
-#header {
-  background-color: bisque;
-  font-size: 300%;
-  color: gray;
-  font-weight: bold;
-  text-align: center;
+.App {
+  position: relative;
+  padding-top: 60px; /* Ajustar según la altura del TopHeader */
 }
