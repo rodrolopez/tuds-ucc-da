@@ -25,7 +25,7 @@ export function configureMiddlewares(app) {
   app.use(express.json());
 
   const router = express.Router();
-
+  app.use('/api', router);
   app.use(errorHandler);
 
   return router;

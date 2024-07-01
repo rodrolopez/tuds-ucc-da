@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import './Menu.css'; // Importar estilos CSS para el menú
+import './Menu.css'; 
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +18,7 @@ const Menu = () => {
         <div className="menuContent">
           <a href="#">INFORMACION</a>
           <a href="#">EXAMENES</a>
-          <a href="#">FORO</a>
-          {/* Agregar más opciones de menú según sea necesario */}
+          <a href="#">FORO</a>          
         </div>
       )}
     </div>

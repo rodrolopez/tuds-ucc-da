@@ -12,7 +12,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\backend\\swagger.js"
+            "cwd": "${workspaceFolder}/backend",
+            "program": "${workspaceFolder}/backend/server.js"
         }
     ]
 }

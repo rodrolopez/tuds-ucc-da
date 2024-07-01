@@ -1,7 +1,7 @@
 #TopHeader {
   background-color: #f0f0f0;
-  height: 60px; /* Ajustar la altura según sea necesario */
-  width: calc(100% - 100px); /* Ancho total menos el ancho del Menu */
+  height: 60px;
+  width: calc(100% - 100px); 
   position: fixed;
   top: 0;
   right: 0;

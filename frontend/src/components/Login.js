@@ -2,7 +2,7 @@ import React from 'react';
 import './Login.css';
 
 const Login = () => {
-  const urlBase = 'http://localhost:4000/api/login';
+  const urlBase = 'http://localhost:4000/api';
 
   const login = (evt) => {
     evt.preventDefault();

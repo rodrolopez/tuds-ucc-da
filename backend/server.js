@@ -7,11 +7,11 @@ import { configureMiddlewares } from './middlewares.js';
 configureDependencies();
 const app = express();
 // eslint-disable-next-line no-undef
-const port = process.env.PORT || 3000; // Definir el puerto
+const port = process.env.PORT || 4000; 
 
-const router = configureMiddlewares(app); // Configurar middlewares en app
-configureRoutes(router); // Configurar rutas en router
-configureSwagger(router); // Configurar Swagger en router
+const router = configureMiddlewares(app);
+configureRoutes(router); 
+configureSwagger(router); 
 
 router.get('/', (req, res) => {
   res.send('Hola Mundo!');
