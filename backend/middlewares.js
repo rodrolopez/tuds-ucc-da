@@ -3,50 +3,50 @@ import cors from 'cors';
 import { Dependency } from './libs/dependency.js';
 
 export function configureMiddlewares(app) {
-    const conf = Dependency.get('conf');
+  const conf = Dependency.get('conf');
 
-    const origin = 'http://localhost:${conf.clientPort}';
-    const corsOptions = {
-        origin,
-        credentials: true,
-        optionSuccessStatus: 200
-    };
+  const origin = `http://localhost:${conf.clientPort}`;
+  const corsOptions = {
+    origin,
+    credentials: true,
+    optionSuccessStatus: 200
+  };
 
-    app.use(cors(corsOptions));
+  app.use(cors(corsOptions));
 
-    app.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', origin);
-        res.header('Access-Control-Allow-Headers', true);
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        next();
-    });
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    next();
+  });
 
-    app.use('/', express.json());
+  app.use(express.json());
 
-    const router = express.Router();
-    app.use(errorHandler);
+  const router = express.Router();
 
-    return router;
+  app.use(errorHandler);
+
+  return router;
 }
 
-
 function errorHandler(err, req, res, next) {
-    if (!(err instanceof Error)) {
-        res.status(500).send(err);
-        next();
-        return;
-    }
+  if (!(err instanceof Error)) {
+    res.status(500).send(err);
+    next();
+    return;
+  }
 
-    const statusCodes = {
-        MissingParameterError: 400,
-        ConflictError: 400
-    };
-    const name = err.constructor.name;
-    const status = statusCodes[name] ?? 500;
+  const statusCodes = {
+    MissingParameterError: 400,
+    ConflictError: 400
+  };
+  const name = err.constructor.name;
+  const status = statusCodes[name] ?? 500;
 
-    res.status(status).send({
-        error: name,
-        message: err.message,
-    });
+  res.status(status).send({
+    error: name,
+    message: err.message,
+  });
 }
