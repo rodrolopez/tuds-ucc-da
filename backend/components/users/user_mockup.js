@@ -1,54 +1,64 @@
-export class UserMockup{
-    static list = [
-        {
-            uuid: '4167d46e-1d7e-48eb-98a6-e75da07d4ee0',
-            username: 'Pedro',
-            displayName: 'Pedro Pe',
-            
-    "hashedPassword": "$2b$10$2v6NtTTD/YAx.BmjyJvO/e0Uz5G58qSJirQD0mYXxW1Rj6ATI3JTu"
-        },
-        {
-            uuid: '828eb501-eb39-4663-82e3-fec048ef9d34',
-            username: 'Ana',
-            displayName: 'Ana Laura',
-            
-    "hashedPassword": "$2b$10$fYC1haOE0P3FdcuZLKpOq.aaUx7xhGhmKs23JeEJrs/SHVqsdvsQy"
-        }
-    ];
+import bcrypt from 'bcrypt';
 
-    async getList(filters, options) {
-        const result = [];
-        if (filters) {
-            for (const item of UserMockup.list) {
-                let includeItem = true;
-                for (const  filterName in filters){
-                    const filterValue = filters[filterName];
-                    if (item[filterName] != filterValue) {
-                        includeItem = false;
-                        break;
-                    }
-                }
+const plainPassword = '1234';
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  const hash = await bcrypt.hash(password, saltRounds);
+  return hash;
+};
 
-                if (includeItem) {
-                    result.push(item);
-                }
-            }
-        } else {
-            result.push (...UserMockup.list);
-        }
+const hashedPassword = await hashPassword(plainPassword);
 
-        if (options?.skip) {
-            result.splice(0, options.skip);
+export class UserMockup {
+  static list = [
+    {
+      uuid: '4167d46e-1d7e-48eb-98a6-e75da07d4ee0',
+      username: 'Pedro',
+      displayName: 'Pedro Pe',
+      'hashedPassword': hashedPassword
+    },
+    {
+      uuid: '828eb501-eb39-4663-82e3-fec048ef9d34',
+      username: 'Ana',
+      displayName: 'Ana Laura',
+      'hashedPassword': '$2b$10$fYC1haOE0P3FdcuZLKpOq.aaUx7xhGhmKs23JeEJrs/SHVqsdvsQy'
+    },
+  ];
+
+  async getList(filters, options) {
+    const result = [];
+    if (filters) {
+      for (const item of UserMockup.list) {
+        let includeItem = true;
+        for (const filterName in filters) {
+          const filterValue = filters[filterName];
+          if (item[filterName] != filterValue) {
+            includeItem = false;
+            break;
+          }
         }
 
-        if (options?.limit) {
-            result.splice(options.limit, result.length);
+        if (includeItem) {
+          result.push(item);
         }
-
-        return result;
+      }
+    } else {
+      result.push(...UserMockup.list);
     }
 
-    async create(data) {
-        UserMockup.list.push(data);
+    if (options?.skip) {
+      result.splice(0, options.skip);
     }
+
+    if (options?.limit) {
+      result.splice(options.limit, result.length);
+    }
+
+    return result;
+  }
+
+  async create(data) {
+    UserMockup.list.push(data);
+  }
 }
+

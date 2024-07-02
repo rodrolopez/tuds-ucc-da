@@ -21,6 +21,6 @@ async function loadConfig() {
 
   return {
     ...global,
-    ...local
+    ...local,
   };
 }

@@ -1,6 +1,6 @@
-import { Dependency } from "../../libs/dependency.js";
-import { MissingParameterError } from "../../libs/missing_parameter_error.js";
-import { UnauthorizedError } from "../../libs/unauthorized_error.js";
+import { Dependency } from '../../libs/dependency.js';
+import { MissingParameterError } from '../../libs/missing_parameter_error.js';
+import { UnauthorizedError } from '../../libs/unauthorized_error.js';
 import jwt from 'jsonwebtoken';
 
 export class LoginService {
@@ -17,23 +17,27 @@ export class LoginService {
     if (!data.password) {
       throw new MissingParameterError('password');
     }
+
     const user = await this.userService.getForUsernameOrNull(data.username);
     if (!user) {
-      throw new UnauthorizedError(`No existe el usuario: ${(data.username)}`);
+      throw new UnauthorizedError('Usuario no encontrado');
     }
 
-    if (!await this.userService.checkPassword(data.password, user.hashedPassword)) {
+    const passwordCorrect = await this.userService.checkPassword(data.password, user.hashedPassword);
+    if (!passwordCorrect) {
       throw new UnauthorizedError('Contraseña incorrecta');
     }
+
     const payload = {
       username: user.username,
       displayName: user.displayName,
       userUuid: user.uuid
-    }
-    const token = jwt.sign(payload, this.conf.jwtPassword); //meter la contraseña
+    };
+    const token = jwt.sign(payload, this.conf.jwtPassword);
 
     return {
-      authorizationToken: token //buscar esto jwt
-    }
+      authorizationToken: token 
+    };
   }
 }
+

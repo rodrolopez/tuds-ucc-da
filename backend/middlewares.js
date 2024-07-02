@@ -1,15 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import { Dependency } from './libs/dependency.js';
+import { conf } from './conf.js';
 
 export function configureMiddlewares(app) {
-  const conf = Dependency.get('conf');
-
   const origin = `http://localhost:${conf.clientPort}`;
   const corsOptions = {
     origin,
     credentials: true,
-    optionSuccessStatus: 200
+    optionSuccessStatus: 200,
   };
 
   app.use(cors(corsOptions));
@@ -40,7 +38,8 @@ function errorHandler(err, req, res, next) {
 
   const statusCodes = {
     MissingParameterError: 400,
-    ConflictError: 400
+    UnauthorizedError: 401,
+    ConflictError: 409,
   };
   const name = err.constructor.name;
   const status = statusCodes[name] ?? 500;
@@ -50,3 +49,4 @@ function errorHandler(err, req, res, next) {
     message: err.message,
   });
 }
+

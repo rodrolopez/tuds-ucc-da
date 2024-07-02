@@ -1,49 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 
 const Login = () => {
-  const urlBase = 'http://localhost:4000/api';
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const login = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    setSuccess(false);
 
-    const data = {
-      username: evt.target.username.value,
-      password: evt.target.password.value
-    };
+    try {
+      const response = await fetch('http://localhost:4000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    console.log(data);
+      const result = await response.json();
 
-    fetch(`${urlBase}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(json => console.log(json.authorizationToken));
+      if (!response.ok) {
+        setError(result.message); // Verifica aquí qué está devolviendo el backend
+      } else {
+        setSuccess(true);
+        setError('');
+      }
+    } catch (error) {
+      setError('Error de red. Por favor, inténtalo de nuevo más tarde.');
+    }
   };
 
   return (
     <div className="login-container">
-      <div className="login-form-container">
-        <div className="login-form">
-          <h2 className="login-form-title">Inicio de Sesión</h2>
-          <form onSubmit={login}>
-            <ul>
-              <li>
-                <label>Nombre de Usuario</label>
-                <input className="login-form-input" name="username" required />
-              </li>
-              <li>
-                <label>Contraseña</label>
-                <input className="login-form-input" name="password" type="password" required />
-              </li>
-            </ul>
-            <button className="login-form-button" type="submit">Iniciar Sesión</button>
-          </form>
-        </div>
+      <div className="login-box">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">Ingreso exitoso</div>}
+          <button type="submit">Login</button>
+        </form>
       </div>
     </div>
   );

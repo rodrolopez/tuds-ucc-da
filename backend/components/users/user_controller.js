@@ -1,4 +1,4 @@
-import { Dependency } from "../../libs/dependency.js";
+import { Dependency } from '../../libs/dependency.js';
 
 export class UserController {
   constructor(){
@@ -11,7 +11,7 @@ export class UserController {
   }
 
   async post (req, res){
-      await this.userService.create(req.body);
-      res.status('204').end();
+    await this.userService.create(req.body);
+    res.status('204').end();
   }
 }
