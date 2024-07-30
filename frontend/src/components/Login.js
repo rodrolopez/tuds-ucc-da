@@ -24,8 +24,9 @@ const Login = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.message); // Verifica aquí qué está devolviendo el backend
+        setError(result.message); 
       } else {
+        console.log('Token de autenticación:', result.authorizationToken);
         setSuccess(true);
         setError('');
       }
