@@ -1,17 +1,25 @@
 import React from 'react';
 import './App.css';
-import TopHeader from './components/TopHeader';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Login from './components/Login';
 
-const App = () => {
+function App(){
+const menuVisivility = true;
+const roles = [];
   return (
-    <div className="App">
-      <TopHeader />
-      <Menu />
-      <Login />
-    </div>
+      <div className="App">
+        <Menu menuVisivility={ menuVisivility } roles = { roles }/>
+
+        <Routes>
+          <Route path="/" element={ <div></div> }/>
+          <Route path="login" element={ <Login/> }/>
+
+        </Routes>
+        
+      </div>
   );
 }
+
 
 export default App;
